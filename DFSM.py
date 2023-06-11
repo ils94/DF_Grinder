@@ -122,7 +122,7 @@ fire_button_entry.grid(row=0, column=1, padx=10, pady=5, sticky='w')
 fire_button_entry.bind('<KeyRelease>', validate_entries)
 
 # Start/Stop Key Label and Entry
-trigger_key_label = tk.Label(label_frame, text="Start/Stop Key:")
+trigger_key_label = tk.Label(label_frame, text="Trigger Key:")
 trigger_key_label.grid(row=1, column=0, padx=10, pady=5, sticky='w')
 trigger_key_entry = tk.Entry(label_frame)
 trigger_key_entry.grid(row=1, column=1, padx=10, pady=5, sticky='w')
