@@ -5,9 +5,15 @@ Small tool to enable holding down your shooting button to help with that grind t
 
 Simple choose a Button/Key that will be held down, and a key to Start/Stop the script, then click "Save".
 
-# Image
+For mouse buttons, simple type "left" for LMB and/or "right" for RMB.
 
-![enter image description here](https://i.imgur.com/Pij7P80.png)
+# Images
+
+![enter image description here](https://i.imgur.com/vnbHYdN.png)
+
+![enter image description here](https://i.imgur.com/y4pMxjG.png)
+
+![enter image description here](https://i.imgur.com/52j0Khz.png)
 
 Download
 
