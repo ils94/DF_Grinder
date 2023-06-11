@@ -20,7 +20,9 @@ def hold_button():
             pyautogui.keyUp(button_to_hold)
 
     def on_key_event(event):
-        if event.name == start_stop_key:
+        global script_enabled
+
+        if script_enabled and event.name == start_stop_key:
             if not hold_button.is_holding:
                 hold_button.is_holding = True
                 hold_action()
@@ -39,14 +41,27 @@ def hold_button():
     keyboard.on_release(on_key_event)
 
 
+def toggle_script():
+    global script_enabled
+
+    if script_enabled:
+        enable_button.config(text="Script: OFF", bg='red')
+        script_enabled = False
+    else:
+        enable_button.config(text="Script: ON", bg='green')
+        script_enabled = True
+
+
 def validate_entries(event=None):
     button_to_hold = button_to_hold_entry.get()
     start_stop_key = start_stop_key_entry.get()
 
     if button_to_hold and start_stop_key:
         hold_button.config(state=tk.NORMAL)
+        enable_button.config(state=tk.NORMAL)
     else:
         hold_button.config(state=tk.DISABLED)
+        enable_button.config(state=tk.DISABLED)
 
 
 # Create the main window
@@ -67,7 +82,7 @@ window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 window.resizable(False, False)
 
 # Find the icon file
-icon_path = 'minigun.ico'
+icon_path = 'path/to/your/icon.ico'
 try:
     window.iconbitmap(icon_path)
 except tk.TclError:
@@ -94,6 +109,13 @@ start_stop_key_entry.bind('<KeyRelease>', validate_entries)
 # Hold Button
 hold_button = tk.Button(window, text="Save", width=8, height=1, command=hold_button, state=tk.DISABLED)
 hold_button.pack(side='right', padx=10, pady=5)
+
+# Enable/Disable Script Button
+script_enabled = False
+
+enable_button = tk.Button(window, text="Script: OFF", width=12, height=1, command=toggle_script, state=tk.DISABLED,
+                          bg='red')
+enable_button.pack(side='left', padx=10, pady=5)
 
 # Start the main event loop
 window.mainloop()
