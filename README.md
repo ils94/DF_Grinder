@@ -1,6 +1,3 @@
-# DF Shooting Macro
-Small tool to enable holding down your shooting button to help with that grind to max level.
-
 # How to use it
 
 Simple set your Fire Button and the Trigger button.
