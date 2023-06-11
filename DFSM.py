@@ -2,6 +2,9 @@ import pyautogui
 import keyboard
 import tkinter as tk
 
+# Enable/Disable Script Button
+script_enabled = False
+
 
 def hold_button():
     fire_key = fire_button_entry.get()
@@ -52,18 +55,18 @@ def toggle_script():
     global script_enabled
 
     if script_enabled:
-        enable_button.config(text="Script: OFF", bg='red')
+        enable_button.config(text="ENABLE", bg='green')
         script_enabled = False
     else:
-        enable_button.config(text="Script: ON", bg='green')
+        enable_button.config(text="DISABLE", bg='red')
         script_enabled = True
 
 
 def validate_entries(event=None):
-    button_to_hold = fire_button_entry.get()
+    shooting_button = fire_button_entry.get()
     trigger_key = trigger_key_entry.get()
 
-    if button_to_hold and trigger_key:
+    if shooting_button and trigger_key:
         save_button.config(state=tk.NORMAL)
         enable_button.config(state=tk.NORMAL)
     else:
@@ -112,35 +115,40 @@ except tk.TclError:
 
 # LabelFrame to hold widgets
 label_frame = tk.LabelFrame(window)
-label_frame.pack(padx=10, pady=10, fill="both", expand=True)
+label_frame.pack(padx=5, pady=5, fill="both", expand=True)
 
 # Button/Key to Hold Label and Entry
-fire_button_label = tk.Label(label_frame, text="Fire Button:")
-fire_button_label.grid(row=0, column=0, padx=10, pady=5, sticky='w')
+fire_button_label = tk.Label(label_frame, text="Fire Button:", font=("Arial", 10, "bold"))
+fire_button_label.grid(row=0, column=0, padx=5, pady=5, sticky='w')
 fire_button_entry = tk.Entry(label_frame)
-fire_button_entry.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+fire_button_entry.grid(row=0, column=1, padx=5, pady=5, sticky='w')
 fire_button_entry.bind('<KeyRelease>', validate_entries)
 
 # Start/Stop Key Label and Entry
-trigger_key_label = tk.Label(label_frame, text="Trigger Key:")
-trigger_key_label.grid(row=1, column=0, padx=10, pady=5, sticky='w')
+trigger_key_label = tk.Label(label_frame, text="Trigger Key:", font=("Arial", 10, "bold"))
+trigger_key_label.grid(row=1, column=0, padx=5, pady=5, sticky='w')
 trigger_key_entry = tk.Entry(label_frame)
-trigger_key_entry.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+trigger_key_entry.grid(row=1, column=1, padx=5, pady=5, sticky='w')
 trigger_key_entry.bind('<KeyRelease>', validate_entries)
 
 # Hold Button
-save_button = tk.Button(window, text="Save", width=8, height=1, command=hold_button, state=tk.DISABLED)
-save_button.pack(side='right', padx=10, pady=5)
+save_button = tk.Button(window, text="Save", width=10, height=1, command=hold_button, state=tk.DISABLED,
+                        font=("Arial", 10, "bold"))
+save_button.pack(side='right', padx=5, pady=5)
 
-# Enable/Disable Script Button
-script_enabled = False
-
-enable_button = tk.Button(window, text="Script: OFF", width=12, height=1, command=toggle_script, state=tk.DISABLED,
-                          bg='red')
-enable_button.pack(side='left', padx=10, pady=5)
+enable_button = tk.Button(window, text="ENABLE", width=10, height=1, command=toggle_script, state=tk.DISABLED,
+                          bg='green', font=("Arial", 10, "bold"))
+enable_button.pack(side='left', padx=5, pady=5)
 
 # Load settings from the file
 load_settings()
+
+if trigger_key_entry.get() and fire_button_entry.get():
+    save_button.config(state=tk.NORMAL)
+    enable_button.config(state=tk.NORMAL)
+
+    enable_button.config(text="ENABLE", bg='green')
+    script_enabled = False
 
 # Start the main event loop
 window.mainloop()
