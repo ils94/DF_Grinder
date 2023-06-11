@@ -66,15 +66,15 @@ def validate_entries(event=None):
 
 # Create the main window
 window = tk.Tk()
-window.title("DF Grinder")
+window.title("DF Shooting Macro")
 
 # Calculate the screen dimensions
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 
 # Calculate the window position
-window_width = 300
-window_height = 150
+window_width = 270
+window_height = 120
 x = (screen_width // 2) - (window_width // 2)
 y = (screen_height // 2) - (window_height // 2)
 
@@ -82,27 +82,27 @@ window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 window.resizable(False, False)
 
 # Find the icon file
-icon_path = 'path/to/your/icon.ico'
+icon_path = 'minigun.ico'
 try:
     window.iconbitmap(icon_path)
 except tk.TclError:
     pass  # Handle the missing icon file error gracefully
 
-# Frame to hold widgets
-frame = tk.Frame(window)
-frame.pack(pady=20, anchor='w')
+# LabelFrame to hold widgets
+label_frame = tk.LabelFrame(window)
+label_frame.pack(padx=10, pady=10, fill="both", expand=True)
 
 # Button/Key to Hold Label and Entry
-button_to_hold_label = tk.Label(frame, text="Button/Key to Hold:")
+button_to_hold_label = tk.Label(label_frame, text="Fire Button:")
 button_to_hold_label.grid(row=0, column=0, padx=10, pady=5, sticky='w')
-button_to_hold_entry = tk.Entry(frame)
+button_to_hold_entry = tk.Entry(label_frame)
 button_to_hold_entry.grid(row=0, column=1, padx=10, pady=5, sticky='w')
 button_to_hold_entry.bind('<KeyRelease>', validate_entries)
 
 # Start/Stop Key Label and Entry
-start_stop_key_label = tk.Label(frame, text="Start/Stop Key:")
+start_stop_key_label = tk.Label(label_frame, text="Start/Stop Key:")
 start_stop_key_label.grid(row=1, column=0, padx=10, pady=5, sticky='w')
-start_stop_key_entry = tk.Entry(frame)
+start_stop_key_entry = tk.Entry(label_frame)
 start_stop_key_entry.grid(row=1, column=1, padx=10, pady=5, sticky='w')
 start_stop_key_entry.bind('<KeyRelease>', validate_entries)
 
