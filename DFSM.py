@@ -9,6 +9,11 @@ def hold_button():
 
     window.focus()
 
+    # Save the values of the entries to a file
+    with open('settings.txt', 'w') as file:
+        file.write(f"FireKey:{fire_button_entry.get()}\n")
+        file.write(f"TriggerKey:{trigger_key_entry.get()}")
+
     def hold_action():
         if fire_key.lower() == 'left' or fire_key.lower() == 'right':
             pyautogui.mouseDown(button=fire_key.lower())
@@ -66,6 +71,21 @@ def validate_entries(event=None):
         enable_button.config(state=tk.DISABLED)
 
 
+def load_settings():
+    try:
+        # Load the values from the file and set them in the entries
+        with open('settings.txt', 'r') as file:
+            for line in file:
+                line = line.strip()
+                key, value = line.split(':')
+                if key == 'FireKey':
+                    fire_button_entry.insert(0, value)
+                elif key == 'TriggerKey':
+                    trigger_key_entry.insert(0, value)
+    except FileNotFoundError:
+        pass
+
+
 # Create the main window
 window = tk.Tk()
 window.title("DF Shooting Macro")
@@ -118,6 +138,9 @@ script_enabled = False
 enable_button = tk.Button(window, text="Script: OFF", width=12, height=1, command=toggle_script, state=tk.DISABLED,
                           bg='red')
 enable_button.pack(side='left', padx=10, pady=5)
+
+# Load settings from the file
+load_settings()
 
 # Start the main event loop
 window.mainloop()
