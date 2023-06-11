@@ -4,34 +4,36 @@ import tkinter as tk
 
 
 def hold_button():
-    button_to_hold = button_to_hold_entry.get()
-    start_stop_key = start_stop_key_entry.get()
+    fire_key = fire_button_entry.get()
+    trigger_key = trigger_key_entry.get()
+
+    window.focus()
 
     def hold_action():
-        if button_to_hold.lower() == 'left' or button_to_hold.lower() == 'right':
-            pyautogui.mouseDown(button=button_to_hold.lower())
+        if fire_key.lower() == 'left' or fire_key.lower() == 'right':
+            pyautogui.mouseDown(button=fire_key.lower())
         else:
-            pyautogui.keyDown(button_to_hold)
+            pyautogui.keyDown(fire_key)
 
     def release_action():
-        if button_to_hold.lower() == 'left' or button_to_hold.lower() == 'right':
-            pyautogui.mouseUp(button=button_to_hold.lower())
+        if fire_key.lower() == 'left' or fire_key.lower() == 'right':
+            pyautogui.mouseUp(button=fire_key.lower())
         else:
-            pyautogui.keyUp(button_to_hold)
+            pyautogui.keyUp(fire_key)
 
     def on_key_event(event):
         global script_enabled
 
-        if script_enabled and event.name == start_stop_key:
-            if not hold_button.is_holding:
-                hold_button.is_holding = True
+        if script_enabled and event.name == trigger_key:
+            if not save_button.is_holding:
+                save_button.is_holding = True
                 hold_action()
             else:
-                hold_button.is_holding = False
+                save_button.is_holding = False
                 release_action()
 
-    if not hasattr(hold_button, 'is_holding'):
-        hold_button.is_holding = False
+    if not hasattr(save_button, 'is_holding'):
+        save_button.is_holding = False
 
     # Unbind previous key events
     keyboard.unhook_all()
@@ -53,14 +55,14 @@ def toggle_script():
 
 
 def validate_entries(event=None):
-    button_to_hold = button_to_hold_entry.get()
-    start_stop_key = start_stop_key_entry.get()
+    button_to_hold = fire_button_entry.get()
+    trigger_key = trigger_key_entry.get()
 
-    if button_to_hold and start_stop_key:
-        hold_button.config(state=tk.NORMAL)
+    if button_to_hold and trigger_key:
+        save_button.config(state=tk.NORMAL)
         enable_button.config(state=tk.NORMAL)
     else:
-        hold_button.config(state=tk.DISABLED)
+        save_button.config(state=tk.DISABLED)
         enable_button.config(state=tk.DISABLED)
 
 
@@ -93,22 +95,22 @@ label_frame = tk.LabelFrame(window)
 label_frame.pack(padx=10, pady=10, fill="both", expand=True)
 
 # Button/Key to Hold Label and Entry
-button_to_hold_label = tk.Label(label_frame, text="Fire Button:")
-button_to_hold_label.grid(row=0, column=0, padx=10, pady=5, sticky='w')
-button_to_hold_entry = tk.Entry(label_frame)
-button_to_hold_entry.grid(row=0, column=1, padx=10, pady=5, sticky='w')
-button_to_hold_entry.bind('<KeyRelease>', validate_entries)
+fire_button_label = tk.Label(label_frame, text="Fire Button:")
+fire_button_label.grid(row=0, column=0, padx=10, pady=5, sticky='w')
+fire_button_entry = tk.Entry(label_frame)
+fire_button_entry.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+fire_button_entry.bind('<KeyRelease>', validate_entries)
 
 # Start/Stop Key Label and Entry
-start_stop_key_label = tk.Label(label_frame, text="Start/Stop Key:")
-start_stop_key_label.grid(row=1, column=0, padx=10, pady=5, sticky='w')
-start_stop_key_entry = tk.Entry(label_frame)
-start_stop_key_entry.grid(row=1, column=1, padx=10, pady=5, sticky='w')
-start_stop_key_entry.bind('<KeyRelease>', validate_entries)
+trigger_key_label = tk.Label(label_frame, text="Start/Stop Key:")
+trigger_key_label.grid(row=1, column=0, padx=10, pady=5, sticky='w')
+trigger_key_entry = tk.Entry(label_frame)
+trigger_key_entry.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+trigger_key_entry.bind('<KeyRelease>', validate_entries)
 
 # Hold Button
-hold_button = tk.Button(window, text="Save", width=8, height=1, command=hold_button, state=tk.DISABLED)
-hold_button.pack(side='right', padx=10, pady=5)
+save_button = tk.Button(window, text="Save", width=8, height=1, command=hold_button, state=tk.DISABLED)
+save_button.pack(side='right', padx=10, pady=5)
 
 # Enable/Disable Script Button
 script_enabled = False
