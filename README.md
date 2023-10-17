@@ -10,11 +10,11 @@ For mouse buttons, simple type "left" for LMB and "right" for RMB.
 
 # Images
 
-![enter image description here](https://i.imgur.com/MKJZqGd.png)
+![enter image description here](https://github.com/ils94/DF_Shooting_Macro/blob/master/MKJZqGd.png?raw=true)
 
-![enter image description here](https://i.imgur.com/7CrsA2J.png)
+![enter image description here](https://github.com/ils94/DF_Shooting_Macro/blob/master/7CrsA2J.png?raw=true)
 
-![enter image description here](https://i.imgur.com/LsYISA5.png)
+![enter image description here](https://github.com/ils94/DF_Shooting_Macro/blob/master/LsYISA5.png?raw=true)
 
 Download
 
